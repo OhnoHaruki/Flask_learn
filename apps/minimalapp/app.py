@@ -8,9 +8,11 @@ from flask import (
     current_app,
     flash,
     g,
+    make_response,
     redirect,
     render_template,
     request,
+    session,
     url_for,
 )
 from flask_debugtoolbar import DebugToolbarExtension
@@ -81,6 +83,17 @@ with app.test_request_context("/users?updated=true"):
 
 @app.route("/contact")  # お問い合わせフォーム
 def contact():
+    # レスポンスオブジェクトを所得する
+    response = make_response(render_template("contact.html"))
+
+    # クッキーを設定する
+    response.set_cookie("flaskbook key", "flaskbook value")
+
+    # セッションを設定する
+    session["username"] = "ichiro"
+
+    # レスポンスオブジェクトを返す
+    return response
     return render_template("contact.html")
 
 
