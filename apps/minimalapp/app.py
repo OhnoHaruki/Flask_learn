@@ -130,6 +130,10 @@ def contact_complete():
 
 def send_email(to, subject, template, **kwargs):
     """メールを送信する関数"""
-    msg = Message(subject, recipients=[to])
-    msg.body = render_template(template + ".txt", **kwargs)
-    msg.html = render_template(template + ".html", **kwargs)
+    msg = Message(
+        subject,
+        recipients=[to],
+        body=render_template(template + ".txt", **kwargs),
+        html=render_template(template + ".html", **kwargs),
+    )
+    mail.send(msg)
