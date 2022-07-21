@@ -3,9 +3,12 @@ from pathlib import Path
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
 
 # SQLAlchemyをインスタンス化する
 db = SQLAlchemy()
+
+csrf = CSRFProtect()
 
 
 # create_app関数を使用する
@@ -19,7 +22,10 @@ def create_app():
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
         # SQLをコンソールログに出力する設定
         SQLALCHEMY_ECHO=True,
+        WTF_CSRF_SECRET_KEY="adaJIn153iAHoti497ragjoH",
     )
+
+    csrf.init_app(app)
     # SQLalchemyとアプリを連携する
     db.init_app(app)
     # Migrateとアプリを設定する

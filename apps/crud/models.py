@@ -1,4 +1,3 @@
-import email
 from datetime import datetime
 
 from apps.app import db
@@ -13,7 +12,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, index=True)
     email = db.Column(db.String, unique=True, index=True)
-    password = db.Column(db.String)
+    password_hash = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
