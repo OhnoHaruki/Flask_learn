@@ -1,6 +1,6 @@
 # dbをインポート
 from apps.app import db
-from apps.crud.forms import UserForm
+from apps.crud.forms import Userform
 
 # Userクラスをインポートする
 from apps.crud.models import User
@@ -30,7 +30,7 @@ def sql():
 @crud.route("/Users/new", methods=["GET", "POST"])
 def create_user():
     # UserFormをインスタンス化する
-    form = UserForm()
+    form = Userform()
     # フォームの値をバリデートする
     if form.validate_on_submit():
         # ユーザを作成する
@@ -45,3 +45,10 @@ def create_user():
         # ユーザ一案画面にリダイレクトする
         return redirect(url_for("crud.users"))
     return render_template("crud/create.html", form=form)
+
+
+@crud.route("/users")
+def users():
+    # ユーザの一覧を所得
+    users = User.query.all()
+    return render_template("crud/index.html", users=users)
