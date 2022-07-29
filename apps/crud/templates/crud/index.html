@@ -5,14 +5,14 @@
         <title>ユーザの一覧</title>
         <link
             rel="stylesheet"
-            href="{{ url_for('crud.static',filename='style.css') }}
+            href="{{ url_for('crud.static',filename='style.css') }}"
         />
     </head>
 
     <body>
         <h2>ユーザの一覧</h2>
 
-        <a href="{{ url_for('crud.static_user')}}">"ユーザの新規作成"</a>
+        <a href="{{ url_for('crud.create_user')}}">"ユーザの新規作成"</a>
 
         <table>
             <tr>
@@ -20,7 +20,7 @@
                 <th>ユーザ名</th>
                 <th>メールアドレス</th>
             </tr>
-            {% for usee in users %}
+            {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>

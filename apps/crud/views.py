@@ -1,4 +1,6 @@
 # dbをインポート
+from xmlrpc.client import _DateTimeComparable
+
 from apps.app import db
 from apps.crud.forms import Userform
 
@@ -52,3 +54,24 @@ def users():
     # ユーザの一覧を所得
     users = User.query.all()
     return render_template("crud/index.html", users=users)
+
+
+# methodsにGETとPOSTを指定する
+@crud.route("/users/<user_id>", methods=["GET", "POST"])
+def edit_user(user_id):
+    form = Userform()
+
+    # Userモデルを利用してユーザを所得する
+    user = User.query.filter_by(id=user_id).first()
+
+    # formからサブミットされた場合はユーザを更新しユーザの一覧画面へリダイレクトする
+    if form.validate_on_submit():
+        user.username = form.username.data
+        user.email = form.email.data
+        user.password = form.password.data
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for("crud.users"))
+
+    # GETの場合はHTMLを返す
+    return render_template("crud/edit.html", user=user, form=form)
