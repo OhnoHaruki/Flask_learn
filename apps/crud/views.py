@@ -1,6 +1,4 @@
 # dbをインポート
-from xmlrpc.client import _DateTimeComparable
-
 from apps.app import db
 from apps.crud.forms import Userform
 
