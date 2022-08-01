@@ -4,10 +4,10 @@ from wtforms.validators import DataRequired, Email, length
 
 
 # ユーザの新規作成とユーザ編集フォームクラス
-class Userform(FlaskForm):
+class UserForm(FlaskForm):
     # ユーザフォームのusername属性のラベルと貼データを設定する
     username = StringField(
-        "ユーザ名",
+        "ユーザ-名",
         validators=[
             DataRequired(message="ユーザ名は必須です。"),
             length(max=30, message="30文字以内で入力してください。"),

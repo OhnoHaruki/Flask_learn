@@ -33,12 +33,17 @@
             {% endfor %}
 
             <p>
-                {{ form.password.label }}{{ form.password(placeholder="パスワード",value=user.password)}}
+                {{ form.password.label }}{{ form.password(placeholder="パスワード")}}
             </p>
             {% for error in form.password.errors %}
             <span style="color:red;">{{ error }}</span>
             {% endfor %}
             <p><input type="submit" value="更新"/></p>
+        </form>
+
+        <form action="{{url_for('crud.delete_user',user_id=user.id)}}" method="POST">
+            {{ form.csrf_token }}
+            <input type="submit" value="削除">
         </form>
     </body>
 </html>
