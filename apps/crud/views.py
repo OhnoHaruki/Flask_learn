@@ -59,7 +59,7 @@ def users():
 def edit_user(user_id):
     form = UserForm()
 
-    # Userモデルを利用してユーザを所得する
+    # Userモデルを利用してユーザをを所得する
     user = User.query.filter_by(id=user_id).first()
 
     # formからサブミットされた場合はユーザを更新しユーザの一覧画面へリダイレクトする
