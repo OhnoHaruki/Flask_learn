@@ -5,6 +5,8 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 
+from apps.config import config
+
 # SQLAlchemyをインスタンス化する
 db = SQLAlchemy()
 
@@ -12,9 +14,11 @@ csrf = CSRFProtect()
 
 
 # create_app関数を使用する
-def create_app():
+def create_app(config_key):
     # Flaskインスタンスを作成
     app = Flask(__name__)
+    # config_keyにマッチする環境のコンフィグクラスを読み込む
+    app.config.from_object(config[config_key])
     # アプリのコンフィグ設定
     app.config.from_mapping(
         SECRET_KEY="AFdcd142agaHKen28Jirn3J",

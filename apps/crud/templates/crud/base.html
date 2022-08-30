@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <!--titleは実装先で決定する-->
+        <title>{% block title %}{% endblock %}</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('crud.static',filename='style.css') }}"
+        />
+    </head>
+
+    <body>
+        <!-- contentを継承先で実装する -->
+        {% block content %}{% endblock %}
+    </body>
+</html>
