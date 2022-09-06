@@ -1,5 +1,5 @@
 from apps.app import db
-from apps.auth.forms import SignUpForm
+from apps.auth.forms import LoginForm, SignUpForm
 from apps.crud.models import User
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import login_user
@@ -11,6 +11,19 @@ auth = Blueprint(
     template_folder="templates",
     static_folder="static",
 )
+
+
+@auth.route("/login", methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        # メールからユーザーを所得する
+        user = User.filter_by(email=form.email.data).first()
+
+        # ユーザが存在し、パスワードが一致する場合はログインを許可する
+        if user is not None and user.varify_password(form.password.data):
+            login_user(user)
+            return redirect(url_for("crud.users"))
 
 
 # indexエンドポイントの作成
