@@ -6,7 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 
 # db.Modelを継承したUserクラスを作る
-class User(db.Model, UserMixin):
+class User(UserMixin, db.Model):
     # テーブル名の指定
     __tablename__ = "users"
     # カラムを定義する
@@ -34,6 +34,9 @@ class User(db.Model, UserMixin):
     # メールの重複チェック
     def is_duplicate_email(self):
         return User.query.filter_by(email=self.email).first() is not None
+
+    # backrefを利用してrelation情報を設定する
+    user_images = db.relationship("UserImage", backref="user")
 
 
 # ログインしているユーザ情報を所得する関数を作成する
