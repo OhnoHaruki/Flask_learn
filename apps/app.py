@@ -1,3 +1,25 @@
+"""
+このアプリの基本となるファイル
+
+参考ページと参考内容:
+p.86：app.pyの作成、create_app関数を作成してflaskインスタンスを生成する。Blueprintの説明~p.90まで
+p.97：SQLAlchemyのセットアップ
+p.104：SQLログを出力させる。SQLAlchemyを使った基本的なデータ操作
+p.113：CSRF対策を施す(p.56参照)
+p.136：コンフィグオブジェクトの読み込み
+p.144：Blueprintで認証機能を登録する
+
+
+メモ：
+create_app関数はFlaskアプリを生成する関数。これがあることで簡単に開発環境やステージング(テスト)環境、本番環境など、環境を切り替える事ができる。これにより、テストしやすくなる。
+
+Blueprintとは：Blueprintとはアプリを分割するためのFlaskの機能である。コレを使うことでアプリが大規模になっても簡潔な状態を保つ事ができ、保守性が向上する。
+
+flask-migrate：コード情報をもとにデータベースのテーブルの作成やカラム変更などを行うための機能です。コードの情報をもとにSQLが発行され、SQL情報をファイルに保持するため、継続的にデータベースの更新や更新前の状態に戻すロールバックが可能になる。
+
+CSRF：webアプリの脆弱性のうちの一つ。p.56ページを参照。
+
+"""
 from pathlib import Path
 
 from flask import Flask
@@ -28,15 +50,6 @@ def create_app(config_key):
     app = Flask(__name__)
     # config_keyにマッチする環境のコンフィグクラスを読み込む
     app.config.from_object(config[config_key])
-    # アプリのコンフィグ設定
-    app.config.from_mapping(
-        SECRET_KEY="AFdcd142agaHKen28Jirn3J",
-        SQLALCHEMY_DATABASE_URI=f"sqlite:///{Path(__file__).parent.parent / 'local.sqlite'}",
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        # SQLをコンソールログに出力する設定
-        SQLALCHEMY_ECHO=True,
-        WTF_CSRF_SECRET_KEY="adaJIn153iAHoti497ragjoH",
-    )
 
     csrf.init_app(app)
     # SQLalchemyとアプリを連携する
