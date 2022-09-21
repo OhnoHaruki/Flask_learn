@@ -8,6 +8,8 @@ p.104：SQLログを出力させる。SQLAlchemyを使った基本的なデー�
 p.113：CSRF対策を施す(p.56参照)
 p.136：コンフィグオブジェクトの読み込み
 p.144：Blueprintで認証機能を登録する
+p.147：サインアップ機能の作成(flask-loginと連携してFlaskで認証機能を作成する
+p.174：Blueprintを使って物体検知アプリの登録を行う。
 
 
 メモ：
@@ -20,8 +22,6 @@ flask-migrate：コード情報をもとにデータベースのテーブルの�
 CSRF：webアプリの脆弱性のうちの一つ。p.56ページを参照。
 
 """
-from pathlib import Path
-
 from flask import Flask
 from flask_login import LoginManager
 from flask_migrate import Migrate

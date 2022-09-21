@@ -1,3 +1,17 @@
+"""
+    物体検知アプリケーションの見え方などを作成するファイル
+
+    参考ページと内容：
+    p.175：views.pyの作成と物体検知アプリ(detetor)用のエンドポイントの作成
+    p.185：画像一覧画面を実装する
+    p.197：サインアップ画面の実装(apps/views.py)
+    p.200：サインアップ画面のテンプレートを更新(auth/signup.html)
+    p.202：ログイン画面のエンドポイントの更新(auth/view.py)
+    p.203：ログイン画面のレンプレートを更新(auth/login.html)
+    p.210：画像を表示するエンドポイントを作成する
+    p.214：画像アップロード画面のエンドポイントを作成
+"""
+
 # uuidをimportする
 import uuid  # uuidとはUniversally Unique Identifierのことで世界中で重複しないIDのことを指す
 
@@ -34,7 +48,7 @@ def index():
         .filter(User.id == UserImage.user_id)
         .all()
     )
-    return render_template("detector/index.html")
+    return render_template("detector/index.html", user_images=user_images)
 
 
 @dt.route("/images/<path:filename>")

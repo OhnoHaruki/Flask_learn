@@ -1,3 +1,6 @@
+"""
+ログインしたユーザが画像をアップロードした際に画像URLを保存するためのモデル
+"""
 from datetime import datetime
 
 from apps.app import db
