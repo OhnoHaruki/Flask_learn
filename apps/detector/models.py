@@ -1,5 +1,9 @@
 """
 ログインしたユーザが画像をアップロードした際に画像URLを保存するためのモデル
+
+参考ページ
+p.183：UserImageクラスの作成
+p.221：UserImageTagクラスの作成
 """
 from datetime import datetime
 
@@ -13,5 +17,15 @@ class UserImage(db.Model):
     user_id = db.Column(db.String, db.ForeignKey("users.id"))
     image_path = db.Column(db.String)
     is_detected = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+
+
+class UserImageTag(db.Model):
+    __tablename__ = "user_image_tags"
+    id = db.Column(db.Integer, primary_key=True)
+    # user_image_idはuser_imageテーブルのidカラムの外部キーとして設定する
+    user_image_id = db.Column(db.String, db.ForeignKey("user_images.id"))
+    tag_name = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
